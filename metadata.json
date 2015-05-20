@@ -1,0 +1,14 @@
+{
+  "name": "attachmentgenie-puppetmaster",
+  "version": "1.0.0",
+  "author": "attachmentgenie",
+  "summary": "Placeholder module for puppetmaster roles and profiles",
+  "license": "Apache 2.0",
+  "source": "https://github.com/attachmentgenie/attachmentgenie-puppetmaster.git",
+  "project_page": "https://github.com/attachmentgenie/attachmentgenie-puppetmaster",
+  "issues_url": "https://github.com/attachmentgenie/attachmentgenie-puppetmaster/issues",
+  "dependencies": [
+    {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"}
+  ]
+}
+
