@@ -1,4 +1,4 @@
-class profile_foreman_proxy (
+class puppetmaster::profile_foreman_proxy (
   $foreman_host = 'foreman',
   $version      = 'present',
 ) {

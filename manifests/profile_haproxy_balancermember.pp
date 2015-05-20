@@ -1,4 +1,4 @@
-class profile_haproxy_balancermember () {
+class puppetmaster::profile_haproxy_balancermember () {
   @@haproxy::balancermember { "puppetmaster-${::hostname}":
     listening_service => 'puppetmaster',
     server_names      => $::hostname,

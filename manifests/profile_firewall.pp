@@ -1,4 +1,4 @@
-class profile_firewall (
+class puppetmaster::profile_firewall (
   $ensure = 'running',
 ) {
   class { 'firewall':

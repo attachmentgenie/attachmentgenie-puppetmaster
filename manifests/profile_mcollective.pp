@@ -1,4 +1,4 @@
-class profile_mcollective (
+class puppetmaster::profile_mcollective (
   $client           = false,
   $middleware       = false,
   $middleware_hosts = [$::fqdn],

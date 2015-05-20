@@ -1,4 +1,4 @@
-class profile_foreman (
+class puppetmaster::profile_foreman (
   $apipie_task            = 'apipie:cache:index',
   $configure_epel_repo    = false,
   $db_manage              = true,

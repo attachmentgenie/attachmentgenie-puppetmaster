@@ -1,4 +1,4 @@
-class profile_activemq (
+class puppetmaster::profile_activemq (
   $memoryusage               = '200 mb',
   $storeusage                = '1 gb',
   $tempusage                 = '1 gb',

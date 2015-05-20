@@ -1,4 +1,4 @@
-class profile_haproxy () {
+class puppetmaster::profile_haproxy () {
   class { 'haproxy': }
   haproxy::listen { 'puppetmaster':
     ipaddress => $::ipaddress_eth1,
