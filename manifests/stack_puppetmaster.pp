@@ -9,7 +9,7 @@ class puppetmaster::stack_puppetmaster (
   if !defined(Class['::puppetmaster::profile_puppet']) {
     class { '::puppetmaster::profile_puppet': }
   }
-  if $puppetca and $r10k {
+  if $r10k {
     class { '::puppetmaster::profile_r10k': }
   }
   if $puppetca and $foreman_proxy {
