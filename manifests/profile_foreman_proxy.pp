@@ -1,7 +1,9 @@
 class puppetmaster::profile_foreman_proxy (
   $foreman_host = 'foreman',
-  $version      = 'present',
   $protocol     = 'https',
+  $puppetca     = false,
+  $puppetrun    = true,
+  $version      = 'present',
 ) {
   class { '::foreman_proxy':
     foreman_base_url => "${protocol}://${foreman_host}",
@@ -9,8 +11,8 @@ class puppetmaster::profile_foreman_proxy (
     bmc              => false,
     dhcp             => false,
     dns              => false,
-    puppetca         => true,
-    puppetrun        => true,
+    puppetca         => $puppetca,
+    puppetrun        => $puppetrun,
     tftp             => false,
     version          => $version,
   }

@@ -1,10 +1,13 @@
 class puppetmaster::profile_mcollective (
   $client           = false,
-  $middleware       = false,
   $middleware_hosts = [$::fqdn],
 ) {
-    class { '::mcollective':
-      client           => $client,
-      middleware_hosts => $middleware_hosts,
-    }
+  class { '::mcollective':
+    client             => $client,
+    middleware_hosts   => $middleware_hosts,
+  }
+
+  if $client {
+    mcollective::user { 'vagrant': }
+  }
 }

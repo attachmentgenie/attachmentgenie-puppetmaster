@@ -1,22 +1,12 @@
 class puppetmaster::stack_puppetmaster (
   $foreman       = false,
   $foreman_proxy = false,
-  $mcollective   = false,
+  $mco_broker    = false,
+  $mco_client    = false,
   $puppetca      = false,
   $puppetdb      = false,
   $r10k          = false,
 ) {
-  if !defined(Class['::puppetmaster::profile_puppet']) {
-    class { '::puppetmaster::profile_puppet': }
-  }
-  if $r10k {
-    class { '::puppetmaster::profile_r10k': }
-  }
-  if $puppetca and $foreman_proxy {
-    class { '::puppetmaster::profile_foreman_proxy': }
-    Class['::puppet'] ->
-    Class['::foreman_proxy']
-  }
   if $foreman {
     class { '::puppetmaster::profile_foreman': }
     Class['::puppet'] ->
@@ -26,8 +16,21 @@ class puppetmaster::stack_puppetmaster (
       Class['::puppetdb::server']
     }
   }
-  if $mcollective {
+  if $puppetca and $foreman_proxy {
+    class { '::puppetmaster::profile_foreman_proxy': }
+    Class['::puppet'] ->
+    Class['::foreman_proxy']
+  }
+  if $mco_broker {
+    if !defined(Class['::puppetmaster::profile_activemq']) {
+      class { '::puppetmaster::profile_activemq': }
+    }
+  }
+  if $mco_client {
     class { '::puppetmaster::profile_mcollective': }
+  }
+  if !defined(Class['::puppetmaster::profile_puppet']) {
+    class { '::puppetmaster::profile_puppet': }
   }
   if $puppetdb {
     class { '::puppetmaster::profile_puppetdb': }
@@ -35,5 +38,8 @@ class puppetmaster::stack_puppetmaster (
       Class['::puppet::server::service'] ->
       Class['::puppetdb::server']
     }
+  }
+  if $r10k {
+    class { '::puppetmaster::profile_r10k': }
   }
 }
