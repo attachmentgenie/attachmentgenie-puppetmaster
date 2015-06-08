@@ -5,6 +5,7 @@ class puppetmaster::profile_foreman (
   $foreman_admin_password = 'secret',
   $foreman_host           = $::fqdn,
   $foreman_repo           = 'stable',
+  $plugins                = {},
   $selinux                = false,
   $ssl                    = true,
   $unattended             = true,
@@ -27,7 +28,5 @@ class puppetmaster::profile_foreman (
     username    => 'admin',
     password    => $foreman_admin_password,
   }
-  ::foreman::plugin { 'puppetdb':
-    package => 'ruby193-rubygem-puppetdb_foreman',
-  }
+  create_resources(::foreman::plugin, $plugins)
 }
