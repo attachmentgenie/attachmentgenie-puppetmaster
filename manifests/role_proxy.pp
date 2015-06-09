@@ -1,5 +1,5 @@
 class puppetmaster::role_proxy () {
-  class { '::puppetmaster::profile_ntp': }
-  class { '::puppetmaster::profile_firewall': } ->
+  class { '::orchestrate::profile_time': } ->
+  class { '::orchestrate::profile_firewall': } ->
   class { '::puppetmaster::profile_haproxy': }
 }
