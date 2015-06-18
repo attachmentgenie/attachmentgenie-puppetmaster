@@ -1,5 +1,6 @@
 class puppetmaster::profile_mcollective (
   $client           = false,
+  $client_user      = 'vagrant',
   $middleware_hosts = [$::fqdn],
 ) {
   class { '::mcollective':

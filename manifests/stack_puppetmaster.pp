@@ -22,12 +22,12 @@ class puppetmaster::stack_puppetmaster (
     Class['::foreman_proxy']
   }
   if $mco_broker {
-    if !defined(Class['::puppetmaster::profile_activemq']) {
-      class { '::puppetmaster::profile_activemq': }
-    }
+    class { '::puppetmaster::profile_activemq': }
   }
   if $mco_client {
-    class { '::puppetmaster::profile_mcollective': }
+    if !defined(Class['::puppetmaster::profile_mcollective']) {
+      class { '::puppetmaster::profile_mcollective': }
+    }
   }
   if !defined(Class['::puppetmaster::profile_puppet']) {
     class { '::puppetmaster::profile_puppet': }
