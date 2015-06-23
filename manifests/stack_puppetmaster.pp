@@ -11,6 +11,10 @@ class puppetmaster::stack_puppetmaster (
     class { '::puppetmaster::profile_foreman': }
     Class['::puppet'] ->
     Class['::foreman']
+    if $foreman {
+      Class['::foreman'] ->
+      Class['::foreman_proxy::register']
+    }
     if $puppetdb {
       Class['::foreman'] ->
       Class['::puppetdb::server']

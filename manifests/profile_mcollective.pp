@@ -2,6 +2,7 @@ class puppetmaster::profile_mcollective (
   $client           = false,
   $client_user      = 'vagrant',
   $middleware_hosts = [$::fqdn],
+  $users            = { 'vagrant' => {} },
 ) {
   class { '::mcollective':
     client             => $client,
@@ -9,6 +10,6 @@ class puppetmaster::profile_mcollective (
   }
 
   if $client {
-    mcollective::user { 'vagrant': }
+    create_resources(mcollective::user, $users)
   }
 }

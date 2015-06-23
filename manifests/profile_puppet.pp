@@ -1,5 +1,7 @@
 class puppetmaster::profile_puppet (
   $allow_any_crl_auth          = true,
+  $autosign                    = true,
+  $autosign_domains            = ['*.vagrant'],
   $dns_alt_names               = [],
   $puppetmaster                = undef,
   $runmode                     = 'service',
@@ -35,5 +37,25 @@ class puppetmaster::profile_puppet (
     server_storeconfigs_backend => $server_storeconfigs_backend,
     show_diff                   => $show_diff,
     splay                       => $splay,
+  }
+  if $server {
+    file { '/etc/puppet/hiera.yaml':
+      mode   => '0644',
+      owner  => 'puppet',
+      group  => 'puppet',
+      source => 'puppet:///modules/puppetmaster/hiera.yaml',
+    }
+    Class['::puppet'] ->
+    File['/etc/puppet/hiera.yaml']
+    if $autosign {
+      file { '/etc/puppet/autosign.conf':
+        mode    => '0644',
+        owner   => 'puppet',
+        group   => 'puppet',
+        content => template("puppetmaster/autosign.conf.erb"),
+      }
+      Class['::puppet'] ->
+      File['/etc/puppet/autosign.conf']
+    }
   }
 }
