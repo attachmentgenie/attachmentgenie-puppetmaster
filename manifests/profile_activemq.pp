@@ -4,16 +4,22 @@ class puppetmaster::profile_activemq (
   $tempusage           = '1 gb',
   $console             = false,
   $instance            = 'mcollective',
-  $middleware_user     = 'mcollective',
-  $middleware_password = 'marionette',
+  $mq_admin_username   = 'mco-admin',
+  $mq_admin_password   = 'marionette',
+  $mq_cluster_username = 'mco-cluster',
+  $mq_cluster_password = 'marionette',
   $version             = '5.9.1-2.el6',
   $webconsole          = true,
 ) {
   class { '::activemq':
-    instance           => $instance,
-    mq_cluster_brokers => [$::fqdn],
-    version            => $version,
-    webconsole         => $webconsole,
+    instance            => $instance,
+    mq_admin_username   => $mq_admin_username,
+    mq_admin_password   => $mq_admin_password,
+    mq_cluster_username => $mq_cluster_username,
+    mq_cluster_password => $mq_cluster_password,
+    mq_cluster_brokers  => [$::fqdn],
+    version             => $version,
+    webconsole          => $webconsole,
   }
   file { '/usr/share/activemq/activemq-data':
     ensure  => 'link',
