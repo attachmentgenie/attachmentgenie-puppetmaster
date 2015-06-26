@@ -9,7 +9,6 @@ class puppetmaster::profile_r10k (
         'prefix'  => false,
       }
     },
-    purgedirs         => ["${::settings::confdir}/environments"],
     manage_modulepath => false,
   }
 }

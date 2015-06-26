@@ -4,6 +4,7 @@ class puppetmaster::profile_puppet (
   $autosign_domains            = ['*.vagrant'],
   $dns_alt_names               = [],
   $puppetmaster                = undef,
+  $hiera_yaml_datadir          = '/var/lib/hiera',
   $runmode                     = 'service',
   $server                      = false,
   $server_ca                   = true,
@@ -47,7 +48,7 @@ class puppetmaster::profile_puppet (
       mode   => '0644',
       owner  => 'puppet',
       group  => 'puppet',
-      source => 'puppet:///modules/puppetmaster/hiera.yaml',
+      content => template("puppetmaster/hiera.yaml.erb"),
     }
     Class['::puppet'] ->
     File['/etc/puppet/hiera.yaml']

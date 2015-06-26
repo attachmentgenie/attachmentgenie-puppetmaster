@@ -1,10 +1,10 @@
 class puppetmaster::stack_puppetmaster (
   $foreman       = false,
   $foreman_proxy = false,
-  $mco_broker    = false,
-  $mco_client    = false,
-  $puppetca      = false,
+  $activemq      = false,
+  $mcollective   = false,
   $puppetdb      = false,
+  $puppetmaster  = false,
   $r10k          = false,
 ) {
   if $foreman {
@@ -20,25 +20,31 @@ class puppetmaster::stack_puppetmaster (
       Class['::puppetdb::server']
     }
   }
-  if $puppetca and $foreman_proxy {
+  if $puppetmaster and $foreman_proxy {
     class { '::puppetmaster::profile_foreman_proxy': }
     Class['::puppet'] ->
     Class['::foreman_proxy']
   }
-  if $mco_broker {
+  if $activemq {
     class { '::puppetmaster::profile_activemq': }
   }
-  if $mco_client {
+  if $mcollective {
     if !defined(Class['::puppetmaster::profile_mcollective']) {
       class { '::puppetmaster::profile_mcollective': }
     }
+    class { '::r10k::mcollective':
+      agent_path => '/usr/lib/ruby/site_ruby/1.8/mcollective/agent',
+      app_path   => '/usr/lib/ruby/site_ruby/1.8/mcollective/application',
+    }
+    Class['::puppetmaster::profile_mcollective'] ->
+    Class['::r10k::mcollective']
   }
   if !defined(Class['::puppetmaster::profile_puppet']) {
     class { '::puppetmaster::profile_puppet': }
   }
   if $puppetdb {
     class { '::puppetmaster::profile_puppetdb': }
-    if ($puppetca) {
+    if ($puppetmaster) {
       Class['::puppet::server::service'] ->
       Class['::puppetdb::server']
     }
