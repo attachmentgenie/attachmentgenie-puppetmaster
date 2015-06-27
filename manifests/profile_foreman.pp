@@ -10,6 +10,11 @@ class puppetmaster::profile_foreman (
   $plugins                = {},
   $selinux                = false,
   $ssl                    = true,
+  $server_ssl_ca          = '/var/lib/puppet/ssl/certs/ca.pem',
+  $server_ssl_chain       = '/var/lib/puppet/ssl/certs/ca.pem',
+  $server_ssl_cert        = "/var/lib/puppet/ssl/certs/${::fqdn}.pem",
+  $server_ssl_key         = "/var/lib/puppet/ssl/private_keys/${::fqdn}.pem",
+  $server_ssl_crl         = '/var/lib/puppet/ssl/ca/ca_crl.pem',
   $unattended             = true,
 ) {
   class { '::foreman':
@@ -24,6 +29,11 @@ class puppetmaster::profile_foreman (
     passenger           => true,
     selinux             => $selinux,
     ssl                 => $ssl,
+    server_ssl_ca       => $server_ssl_ca,
+    server_ssl_chain    => $server_ssl_chain,
+    server_ssl_cert     => $server_ssl_cert,
+    server_ssl_key      => $server_ssl_key,
+    server_ssl_crl      => $server_ssl_crl,
     repo                => $foreman_repo,
     unattended          => $unattended,
   } ->
