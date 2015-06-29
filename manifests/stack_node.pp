@@ -1,7 +1,7 @@
 class puppetmaster::stack_node (
-  $mco_server = false,
+  $mcollective = false,
 ) {
-  if $mco_server {
+  if $mcollective {
     class { '::puppetmaster::profile_mcollective': }
   }
 }
