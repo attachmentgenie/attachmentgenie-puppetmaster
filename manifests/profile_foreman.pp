@@ -1,6 +1,7 @@
 class puppetmaster::profile_foreman (
   $apipie_task            = 'apipie:cache:index',
   $configure_epel_repo    = false,
+  $custom_repo            = false,
   $db_manage              = true,
   $foreman_admin_password = 'secret',
   $foreman_host           = $::fqdn,
@@ -22,6 +23,7 @@ class puppetmaster::profile_foreman (
     apipie_task         => $apipie_task,
     authentication      => true,
     configure_epel_repo => $configure_epel_repo,
+    custom_repo         => $custom_repo,
     db_manage           => $db_manage,
     foreman_url         => $foreman_host,
     locations_enabled   => $locations_enabled,
