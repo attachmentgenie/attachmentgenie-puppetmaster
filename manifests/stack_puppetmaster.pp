@@ -12,7 +12,7 @@ class puppetmaster::stack_puppetmaster (
     class { '::puppetmaster::profile_foreman': }
     Class['::puppet'] ->
     Class['::foreman']
-    if $foreman {
+    if $foreman and $foreman_proxy {
       Class['::foreman'] ->
       Class['::foreman_proxy::register']
     }
