@@ -13,7 +13,7 @@ class puppetmaster::profile_puppet (
   $server_environments         = [],
   $server_external_nodes       = '/etc/puppet/node.rb',
   $server_foreman              = false,
-  $server_foreman_url          = "http://foreman",
+  $server_foreman_url          = 'http://foreman',
   $server_implementation       = 'master',
   $server_parser               = 'current',
   $server_puppetdb_host        = undef,
@@ -45,10 +45,10 @@ class puppetmaster::profile_puppet (
   }
   if $server {
     file { '/etc/puppet/hiera.yaml':
-      mode   => '0644',
-      owner  => 'puppet',
-      group  => 'puppet',
-      content => template("puppetmaster/hiera.yaml.erb"),
+      mode    => '0644',
+      owner   => 'puppet',
+      group   => 'puppet',
+      content => template('puppetmaster/hiera.yaml.erb'),
     }
     Class['::puppet'] ->
     File['/etc/puppet/hiera.yaml']
@@ -57,7 +57,7 @@ class puppetmaster::profile_puppet (
         mode    => '0644',
         owner   => 'puppet',
         group   => 'puppet',
-        content => template("puppetmaster/autosign.conf.erb"),
+        content => template('puppetmaster/autosign.conf.erb'),
       }
       Class['::puppet'] ->
       File['/etc/puppet/autosign.conf']

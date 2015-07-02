@@ -5,8 +5,8 @@ class puppetmaster::profile_mcollective (
   $users            = { 'vagrant' => {} },
 ) {
   class { '::mcollective':
-    client             => $client,
-    middleware_hosts   => $middleware_hosts,
+    client           => $client,
+    middleware_hosts => $middleware_hosts,
   }
 
   if $client {
