@@ -1,13 +1,28 @@
 class puppetmaster::stack_puppetmaster (
+  $activemq         = false,
   $foreman          = false,
   $foreman_proxy    = false,
-  $activemq         = false,
   $mcollective      = false,
   $mcollective_r10k = false,
   $puppetdb         = false,
   $puppetmaster     = false,
   $r10k             = false,
 ) {
+  validate_bool($activemq)
+  validate_bool($foreman)
+  validate_bool($foreman_proxy)
+  validate_bool($mcollective)
+  validate_bool($mcollective_r10k)
+  validate_bool($puppetdb)
+  validate_bool($puppetmaster)
+  validate_bool($r10k)
+
+  if !defined(Class['::puppetmaster::profile_puppet']) {
+    class { '::puppetmaster::profile_puppet': }
+  }
+  if $activemq {
+    class { '::puppetmaster::profile_activemq': }
+  }
   if $foreman {
     class { '::puppetmaster::profile_foreman': }
     Class['::puppet'] ->
@@ -26,9 +41,6 @@ class puppetmaster::stack_puppetmaster (
     Class['::puppet'] ->
     Class['::foreman_proxy']
   }
-  if $activemq {
-    class { '::puppetmaster::profile_activemq': }
-  }
   if $mcollective {
     if !defined(Class['::puppetmaster::profile_mcollective']) {
       class { '::puppetmaster::profile_mcollective': }
@@ -38,9 +50,6 @@ class puppetmaster::stack_puppetmaster (
       Class['::puppetmaster::profile_mcollective'] ->
       Class['::r10k::mcollective']
     }
-  }
-  if !defined(Class['::puppetmaster::profile_puppet']) {
-    class { '::puppetmaster::profile_puppet': }
   }
   if $puppetdb {
     class { '::puppetmaster::profile_puppetdb': }
