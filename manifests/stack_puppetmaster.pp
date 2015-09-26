@@ -2,6 +2,7 @@ class puppetmaster::stack_puppetmaster (
   $activemq         = false,
   $foreman          = false,
   $foreman_proxy    = false,
+  $haproxy_member   = false,
   $mcollective      = false,
   $mcollective_r10k = false,
   $puppetdb         = false,
@@ -36,10 +37,8 @@ class puppetmaster::stack_puppetmaster (
       Class['::puppetdb::server']
     }
   }
-  if $puppetmaster and $foreman_proxy {
-    class { '::puppetmaster::profile_foreman_proxy': }
-    Class['::puppet'] ->
-    Class['::foreman_proxy']
+  if $haproxy_member {
+    class { '::puppetmaster::profile_haproxy_balancermember': }
   }
   if $mcollective {
     if !defined(Class['::puppetmaster::profile_mcollective']) {
@@ -57,6 +56,11 @@ class puppetmaster::stack_puppetmaster (
       Class['::puppet::server::service'] ->
       Class['::puppetdb::server']
     }
+  }
+  if $puppetmaster and $foreman_proxy {
+    class { '::puppetmaster::profile_foreman_proxy': }
+    Class['::puppet'] ->
+    Class['::foreman_proxy']
   }
   if $r10k {
     class { '::puppetmaster::profile_r10k': }
