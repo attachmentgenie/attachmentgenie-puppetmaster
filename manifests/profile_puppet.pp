@@ -44,6 +44,12 @@ class puppetmaster::profile_puppet (
     splay                       => $splay,
   }
   if $server {
+    file { $hiera_yaml_datadir:
+      ensure => 'directory',
+      mode   => '0755',
+      owner  => 'puppet',
+      group  => 'puppet',
+    } ->
     file { '/etc/puppet/hiera.yaml':
       mode    => '0644',
       owner   => 'puppet',
