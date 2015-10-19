@@ -1,6 +1,7 @@
 class puppetmaster::profile_foreman (
   $apipie_task            = 'apipie:cache:index',
   $configure_epel_repo    = false,
+  $compute                = {},
   $custom_repo            = false,
   $db_manage              = true,
   $foreman_admin_password = 'secret',
@@ -45,4 +46,5 @@ class puppetmaster::profile_foreman (
     password    => $foreman_admin_password,
   }
   create_resources(::foreman::plugin, $plugins)
+  create_resources(::foreman::compute, $compute)
 }
