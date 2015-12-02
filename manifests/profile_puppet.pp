@@ -3,8 +3,9 @@ class puppetmaster::profile_puppet (
   $autosign                    = true,
   $autosign_domains            = ['*.vagrant'],
   $dns_alt_names               = [],
-  $puppetmaster                = undef,
+  $foreman_repo                = false,
   $hiera_yaml_datadir          = '/var/lib/hiera',
+  $puppetmaster                = undef,
   $runmode                     = 'service',
   $server                      = false,
   $server_ca                   = true,
@@ -15,6 +16,7 @@ class puppetmaster::profile_puppet (
   $server_foreman              = false,
   $server_foreman_url          = 'http://foreman',
   $server_implementation       = 'master',
+  $server_passenger            = true,
   $server_parser               = 'current',
   $server_puppetdb_host        = undef,
   $server_reports              = 'store',
@@ -36,6 +38,7 @@ class puppetmaster::profile_puppet (
     server_foreman              => $server_foreman,
     server_foreman_url          => $server_foreman_url,
     server_implementation       => $server_implementation,
+    server_passenger            => $server_passenger,
     server_parser               => $server_parser,
     server_puppetdb_host        => $server_puppetdb_host,
     server_reports              => $server_reports,
@@ -67,6 +70,13 @@ class puppetmaster::profile_puppet (
       }
       Class['::puppet'] ->
       File['/etc/puppet/autosign.conf']
+    }
+    if $foreman_repo {
+      foreman::install::repos { 'foreman':
+        repo     => 'stable',
+      }
+      Foreman::Install::Repos['foreman'] ->
+      Class['::puppet']
     }
   }
 }
