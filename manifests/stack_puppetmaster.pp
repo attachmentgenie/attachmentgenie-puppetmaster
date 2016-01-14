@@ -3,6 +3,7 @@ class puppetmaster::stack_puppetmaster (
   $foreman          = false,
   $foreman_proxy    = false,
   $haproxy_member   = false,
+  $memcached        = false,
   $mcollective      = false,
   $mcollective_r10k = false,
   $puppetdb         = false,
@@ -12,6 +13,7 @@ class puppetmaster::stack_puppetmaster (
   validate_bool($activemq)
   validate_bool($foreman)
   validate_bool($foreman_proxy)
+  validate_bool($memcached)
   validate_bool($mcollective)
   validate_bool($mcollective_r10k)
   validate_bool($puppetdb)
@@ -39,6 +41,9 @@ class puppetmaster::stack_puppetmaster (
   }
   if $haproxy_member {
     class { '::puppetmaster::profile_haproxy_balancermember': }
+  }
+  if $memcached {
+    class { '::puppetmaster::profile_memcached': }
   }
   if $mcollective {
     if !defined(Class['::puppetmaster::profile_mcollective']) {
