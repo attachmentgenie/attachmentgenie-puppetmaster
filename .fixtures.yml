@@ -24,5 +24,6 @@ fixtures:
     r10k: "git://github.com/acidprime/r10k.git"
     git: "git://github.com/puppetlabs/puppetlabs-git.git"
     ruby: "git://github.com/puppetlabs/puppetlabs-ruby.git"
+    extlib: "git://github.com/puppet-community/puppet-extlib.git"
   symlinks:
     "puppetmaster": "#{source_dir}"

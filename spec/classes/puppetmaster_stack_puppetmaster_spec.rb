@@ -3,11 +3,13 @@ describe 'puppetmaster::stack_puppetmaster' do
   let :facts do
   {
     :concat_basedir         => '/tmp',
+    :facterversion          => '2.4.4',
     :interfaces             => '',
-    :lsbdistid              => 'Debian',
-    :operatingsystem        => 'Debian',
-    :operatingsystemrelease => 'wheezy',
-    :osfamily               => 'Debian',
+    :osfamily               => 'RedHat',
+    :operatingsystem        => 'Centos',
+    :operatingsystemrelease => '6.6',
+    :puppetversion          => '3.8.4',
+    :rubyversion            => '1.8.7'
   }
   end
 
