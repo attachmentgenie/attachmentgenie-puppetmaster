@@ -2,14 +2,21 @@ require 'spec_helper'
 describe 'puppetmaster::stack_puppetmaster' do
   let :facts do
   {
-    :concat_basedir         => '/tmp',
-    :facterversion          => '2.4.4',
-    :interfaces             => '',
-    :osfamily               => 'RedHat',
-    :operatingsystem        => 'Centos',
-    :operatingsystemrelease => '6.6',
-    :puppetversion          => '3.8.4',
-    :rubyversion            => '1.8.7'
+    :concat_basedir            => '/tmp',
+    :facterversion             => '2.4.4',
+    :interfaces                => '',
+    :ipaddress                 => '127.0.0.1',
+    :is_pe                     => 'false',
+    :mco_version               => '1.2.1',
+    :osfamily                  => 'RedHat',
+    :operatingsystem           => 'Centos',
+    :operatingsystemrelease    => '6.6',
+    :operatingsystemmajrelease => '6',
+    :path                      => ['/usr/bin', '/usr/sbin'],
+    :processorcount            => '1',
+    :puppetversion             => '3.8.7',
+    :rubyversion               => '1.8.7',
+    :selinux                   => 'false'
   }
   end
 
