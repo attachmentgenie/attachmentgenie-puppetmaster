@@ -44,6 +44,10 @@ class puppetmaster::stack_puppetmaster (
   }
   if $memcached {
     class { '::puppetmaster::profile_memcached': }
+    if $foreman and $memcached {
+      Class['::memcached'] ->
+      Class['::foreman']
+    }
   }
   if $mcollective {
     if !defined(Class['::puppetmaster::profile_mcollective']) {
