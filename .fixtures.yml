@@ -12,8 +12,12 @@ fixtures:
     puppetdb: "git://github.com/puppetlabs/puppetlabs-puppetdb.git"
     inifile: "git://github.com/puppetlabs/puppetlabs-inifile.git"
     postgresql: "git://github.com/puppetlabs/puppetlabs-postgresql.git"
-    foreman: "git://github.com/theforeman/puppet-foreman.git"
-    foreman_proxy: "git://github.com/theforeman/puppet-foreman_proxy.git"
+    foreman:
+      repo: "git://github.com/theforeman/puppet-foreman.git"
+      ref: "aa149c5"
+    foreman_proxy:
+      repo: "git://github.com/theforeman/puppet-foreman_proxy.git"
+      ref: "7042abe"
     tftp: "git://github.com/theforeman/puppet-tftp.git"
     mcollective: "git://github.com/puppet-community/puppet-mcollective.git"
     datacat: "git://github.com/richardc/puppet-datacat.git"
