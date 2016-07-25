@@ -1,3 +1,5 @@
+# THIS MODULE IS NOW DEPRECTATED, PLEASE USE attachmentgenie-{roles,stacks,profiles}
+
 # puppetmaster
 
 #### Table of Contents
